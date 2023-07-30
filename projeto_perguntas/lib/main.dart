@@ -1,21 +1,39 @@
 import 'package:flutter/material.dart';
 
 main() {
-  runApp(const AskApp());
+  runApp(const PersonalExpenses());
 }
 
-class AskApp extends StatelessWidget {
-  const AskApp({super.key});
+class PersonalExpenses extends StatelessWidget {
+  const PersonalExpenses({super.key});
 
   @override
   Widget build(BuildContext context) {
     return  MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Ask App'),
-        
-        ),
-        body: const Text('Aqui vai ficar o app de perguntas')
+            title: const Text('Despesas Pessoais'),
+          ),
+          body: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: const [
+              SizedBox(
+                child: Card(
+                  color: Colors.blue,
+                  child: Text('Gáfico'),
+                ),
+              ),
+              SizedBox(
+                
+                child: Card(
+                  color: Colors.blue,
+                  child: Text('Lista de Transações'),
+                ),
+              ),
+            ],
+          )
       ),
     );
   }
