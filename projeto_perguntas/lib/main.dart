@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:projeto_perguntas/blocs/transactions_event.dart';
 import 'package:projeto_perguntas/blocs/transactions_state.dart';
+import 'package:projeto_perguntas/models/transaction.dart';
 
 import 'blocs/transactions_bloc.dart';
 
@@ -30,6 +31,8 @@ class ExpensesAppPage extends StatefulWidget {
 
 class _ExpensesAppPageState extends State<ExpensesAppPage> {
   late final TransactionsBloc _transactionsBloc;
+  final inputTitleController = TextEditingController();
+  final inputValueController = TextEditingController();
 
   @override
   void initState() {
@@ -51,20 +54,35 @@ class _ExpensesAppPageState extends State<ExpensesAppPage> {
           height: 200,
           child: Column(
             children: [
-              const TextField(
-                decoration: InputDecoration(
+              TextField(
+                controller: inputTitleController,
+                decoration: const InputDecoration(
                   labelText: 'Título',
                 ),
               ),
-              const TextField(
-                decoration: InputDecoration(
+              TextField(
+                controller: inputValueController,
+                decoration: const InputDecoration(
                   labelText: 'Valor em (R\$)',
                 ),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  TextButton(child: const Text('Novo'), onPressed: () {}),
+                  TextButton(
+                      child: const Text('Novo'),
+                      onPressed: () {
+                        _transactionsBloc.inputTransactions.add(
+                          PostTransactions(
+                            transactions: Transaction(
+                              id: '1',
+                              title: inputTitleController.text,
+                              time: DateTime.now(),
+                              value: double.parse(inputValueController.text),
+                            ),
+                          ),
+                        );
+                      }),
                 ],
               )
             ],
@@ -127,7 +145,6 @@ class _ExpensesAppPageState extends State<ExpensesAppPage> {
                       );
                     },
                   ),
-                  
                 ],
               );
             }
